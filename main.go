@@ -5,6 +5,8 @@ import (
 )
 
 var arena [20][50]int
+var jogadorlinha [0]int = 10
+var jogadorcoluna [1]int = 25
 
 func main() {
 	fmt.Println(">>>>> ZOMBIE CURSE CURE <<<<<")
@@ -15,10 +17,11 @@ func main() {
 			if i == 0 || i == 19 {
 				print("-")
 			} else if j == 0 || j == 49 {
-				print("|")a
+				print("|")
 			} else {
 				print(" ")
 			}
+
 		}
 
 		fmt.Println()
