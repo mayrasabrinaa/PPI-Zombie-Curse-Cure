@@ -7,16 +7,8 @@ import (
 	"github.com/eiannone/keyboard"
 )
 
-// =========================
-// JOGADOR
-// =========================
-
 var jogadorlinha int = 10
 var jogadorcoluna int = 25
-
-// =========================
-// ZUMBIS
-// =========================
 
 // O máximo agora é 35, pois a fase final terá 35 zumbis.
 var zombielinha [35]int
@@ -26,10 +18,6 @@ var quantidadeZumbis int = 20
 
 var temZombieAqui bool
 
-// =========================
-// CAMUNDONGOS
-// =========================
-
 var camundongolinha [10]int
 var camundongocoluna [10]int
 
@@ -37,19 +25,11 @@ var temCamundongoAqui bool
 
 var camundongoAtual int = 0
 
-// =========================
-// JOGO
-// =========================
-
 var passos int = 0
 var melhorPontuacao int = 0
 var partidaAtual int = 1
 
 var gameOver bool = false
-
-// =========================
-// FASE FINAL
-// =========================
 
 var faseFinal bool = false
 
@@ -59,18 +39,10 @@ var colunasMapa int = 50
 
 func main() {
 
-	// =========================
-	// POSIÇÃO INICIAL DOS ZUMBIS
-	// =========================
-
 	for k := 0; k < quantidadeZumbis; k++ {
 		zombielinha[k] = rand.Intn(linhasMapa-2) + 1
 		zombiecoluna[k] = rand.Intn(colunasMapa-2) + 1
 	}
-
-	// =========================
-	// POSIÇÃO INICIAL DOS CAMUNDONGOS
-	// =========================
 
 	for k := 0; k < 10; k++ {
 		camundongolinha[k] = rand.Intn(linhasMapa-2) + 1
@@ -89,10 +61,6 @@ func main() {
 
 		// Limpa a tela
 		fmt.Print("\033[H\033[2J")
-
-		// ==================================================
-		// GAME OVER
-		// ==================================================
 
 		if gameOver {
 
@@ -166,16 +134,8 @@ func main() {
 			continue
 		}
 
-		// ==================================================
-		// TÍTULO
-		// ==================================================
-
 		fmt.Println("\n>>>>> ZOMBIE CURSE CURE <<<<<")
 		fmt.Println("         🧟-🐭-🧪           \n")
-
-		// ==================================================
-		// AVISO DA FASE FINAL
-		// ==================================================
 
 		if faseFinal {
 			fmt.Println("==================================================")
@@ -183,10 +143,6 @@ func main() {
 			fmt.Println("==================================================")
 			fmt.Println()
 		}
-
-		// ==================================================
-		// MELHOR PONTUAÇÃO
-		// ==================================================
 
 		if melhorPontuacao == 0 {
 
@@ -204,10 +160,6 @@ func main() {
 			)
 		}
 
-		// ==================================================
-		// CAMUNDONGOS CAPTURADOS
-		// ==================================================
-
 		fmt.Print("camundongos capturados: ")
 
 		for c := 0; c < camundongoAtual; c++ {
@@ -215,10 +167,6 @@ func main() {
 		}
 
 		fmt.Println()
-
-		// ==================================================
-		// PARTIDA E PASSOS
-		// ==================================================
 
 		textoPartida :=
 			fmt.Sprintf("partida atual: %d", partidaAtual)
@@ -228,10 +176,6 @@ func main() {
 			textoPartida,
 			passos,
 		)
-
-		// ==================================================
-		// INFORMAÇÕES DA FASE
-		// ==================================================
 
 		fmt.Printf(
 			"zumbis: %d | mapa: %dx%d\n",
@@ -247,10 +191,6 @@ func main() {
 		fmt.Println(
 			"Pressione W, A, S, D para mover. Pressione ESC para sair.",
 		)
-
-		// ==================================================
-		// DESENHA O MAPA
-		// ==================================================
 
 		for i := 0; i < linhasMapa; i++ {
 
@@ -274,10 +214,6 @@ func main() {
 
 				} else {
 
-					// ==========================================
-					// PROCURA ZUMBI
-					// ==========================================
-
 					temZombieAqui = false
 
 					for k := 0; k < quantidadeZumbis; k++ {
@@ -292,10 +228,6 @@ func main() {
 							break
 						}
 					}
-
-					// ==========================================
-					// PROCURA CAMUNDONGO
-					// ==========================================
 
 					if !temZombieAqui {
 
@@ -323,11 +255,7 @@ func main() {
 
 			fmt.Println()
 		}
-
-		// ==================================================
-		// RECEBE A TECLA
-		// ==================================================
-
+		
 		char, key, err := keyboard.GetKey()
 
 		if err != nil ||
@@ -337,10 +265,6 @@ func main() {
 		}
 
 		moveu := false
-
-		// ==================================================
-		// MOVIMENTO DO JOGADOR
-		// ==================================================
 
 		if (char == 'w' || char == 'W') &&
 			jogadorlinha > 1 {
@@ -367,20 +291,12 @@ func main() {
 			moveu = true
 		}
 
-		// ==================================================
-		// CAPTURA DO CAMUNDONGO
-		// ==================================================
-
 		if camundongoAtual < 10 &&
 			jogadorlinha == camundongolinha[camundongoAtual] &&
 			jogadorcoluna == camundongocoluna[camundongoAtual] {
 
 			camundongoAtual++
 		}
-
-		// ==================================================
-		// ATIVA A FASE FINAL
-		// ==================================================
 
 		if camundongoAtual == 10 &&
 			!faseFinal {
@@ -406,17 +322,9 @@ func main() {
 			}
 		}
 
-		// ==================================================
-		// MOVIMENTAÇÃO DOS PERSONAGENS
-		// ==================================================
-
 		if moveu {
 
 			passos++
-
-			// ==========================================
-			// MOVIMENTO DO CAMUNDONGO
-			// ==========================================
 
 			if camundongoAtual < 10 {
 
@@ -449,10 +357,6 @@ func main() {
 				}
 			}
 
-			// ==========================================
-			// MOVIMENTO DOS ZUMBIS
-			// ==========================================
-
 			for k := 0; k < quantidadeZumbis; k++ {
 
 				passoLinha :=
@@ -482,10 +386,6 @@ func main() {
 					zombiecoluna[k] =
 						novaColuna
 				}
-
-				// ==========================================
-				// VERIFICA COLISÃO COM O JOGADOR
-				// ==========================================
 
 				if jogadorlinha == zombielinha[k] &&
 					jogadorcoluna == zombiecoluna[k] {
