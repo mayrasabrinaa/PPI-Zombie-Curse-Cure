@@ -188,7 +188,6 @@ func main() {
 
 			for j := 0; j < colunasMapa; j++ {
 
-				// Parede superior e inferior
 				if i == 0 || i == linhasMapa-1 {
 
 					fmt.Print("-")
@@ -297,7 +296,6 @@ func main() {
 
 			quantidadeZumbis = 35
 
-			// em posições aleatórias
 			for k := 0; k < quantidadeZumbis; k++ {
 
 				zombielinha[k] =
