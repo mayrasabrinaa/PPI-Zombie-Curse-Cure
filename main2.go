@@ -10,7 +10,6 @@ import (
 var jogadorlinha int = 10
 var jogadorcoluna int = 25
 
-// O máximo agora é 35, pois a fase final terá 35 zumbis.
 var zombielinha [35]int
 var zombiecoluna [35]int
 
@@ -33,7 +32,6 @@ var gameOver bool = false
 
 var faseFinal bool = false
 
-// Tamanho inicial do mapa
 var linhasMapa int = 20
 var colunasMapa int = 50
 
@@ -58,8 +56,7 @@ func main() {
 	defer keyboard.Close()
 
 	for {
-
-		// Limpa a tela
+		
 		fmt.Print("\033[H\033[2J")
 
 		if gameOver {
@@ -91,7 +88,6 @@ func main() {
 				} else if charGO == 's' ||
 					charGO == 'S' {
 
-					// Reinicia a partida
 					partidaAtual++
 					passos = 0
 					camundongoAtual = 0
@@ -102,14 +98,11 @@ func main() {
 					gameOver = false
 					faseFinal = false
 
-					// Volta para o tamanho original
 					linhasMapa = 20
 					colunasMapa = 50
 
-					// Volta para 20 zumbis
 					quantidadeZumbis = 20
 
-					// Sorteia novamente os zumbis
 					for k := 0; k < quantidadeZumbis; k++ {
 						zombielinha[k] =
 							rand.Intn(linhasMapa-2) + 1
@@ -118,7 +111,6 @@ func main() {
 							rand.Intn(colunasMapa-2) + 1
 					}
 
-					// Sorteia novamente os camundongos
 					for k := 0; k < 10; k++ {
 						camundongolinha[k] =
 							rand.Intn(linhasMapa-2) + 1
@@ -201,12 +193,10 @@ func main() {
 
 					fmt.Print("-")
 
-				// Parede esquerda e direita
 				} else if j == 0 || j == colunasMapa-1 {
 
 					fmt.Print("|")
 
-				// Jogador
 				} else if i == jogadorlinha &&
 					j == jogadorcoluna {
 
@@ -245,7 +235,6 @@ func main() {
 							temCamundongoAqui = true
 						}
 
-						// Se não tiver zumbi nem camundongo
 						if !temCamundongoAqui {
 							fmt.Print(" ")
 						}
@@ -303,14 +292,11 @@ func main() {
 
 			faseFinal = true
 
-			// Aumenta o mapa
 			linhasMapa = 25
 			colunasMapa = 70
 
-			// Aumenta a quantidade de zumbis
 			quantidadeZumbis = 35
 
-			// Coloca os novos zumbis
 			// em posições aleatórias
 			for k := 0; k < quantidadeZumbis; k++ {
 
